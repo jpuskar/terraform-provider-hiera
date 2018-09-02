@@ -3,6 +3,7 @@ package hiera
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os/exec"
 	"strings"
 
@@ -37,7 +38,14 @@ func (h *Hiera) Exec(arg ...string) ([]byte, error) {
 		args = append(args, c...)
 	}
 
+	log.Printf("[DEBUG] args:")
+	log.Printf(fmt.Sprint(args))
+
 	if out, err = exec.Command(h.Bin, args...).Output(); err != nil {
+		log.Printf("[DEBUG] new outs")
+		log.Printf(fmt.Sprint(out))
+		log.Printf(fmt.Sprint(err))
+		log.Printf("[DEBUG] new outs done")
 		return out, err
 	}
 
